@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue-ajax-githubRepo</title>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.js"></script>
+    <style>
+        body{
+            padding:50px;
+            margin: 0;
+            font-family: 微軟正黑體,serif;
+        }
+        ul{
+            padding: 0
+        }
+        li{
+            list-style: none;
+            padding: 15px 0 5px 0;
+        }
+        a,span{
+            display: inline-block;
+            width: 250px;
+            text-decoration: none;
+            color: rgb(34, 16, 138);
+        }
+        a:hover{
+            color: rgb(163, 158, 158);
+            text-decoration: none;
+        }
+        span{
+            display: inline-block;
+            width: 300px;
+            color: rgb(71, 71, 71)
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <h1>My Repo</h1>
+    
+    <ul>
+        <li v-for='record in commits'>
+            <a href="record.url">{{record.full_name}}</a>
+            <a :href="record.html_url">更新紀錄</a>
+            <span>上傳時間: {{record.created_at}}</span> 
+            <span> 更新時間: {{record.pushed_at}}</span>
+        </li>
+    </ul>
+</div>
+<script>
+    var apiUrl = 'https://api.github.com/users/q50343/repos'
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            currentBranch: 'master',
+            commits: '52626'
+        },
+        created:function(){
+            this.fetchData()
+        },
+        methods: {
+            fetchData: function(){
+                var xhr = new XMLHttpRequest()
+                var self = this
+                xhr.open('GET',apiUrl)
+                xhr.onload = function(){
+                    self.commits = JSON.parse(xhr.responseText)
+                    
+                }
+                xhr.send()
+            }
+        }
+    })
+    
+</script>
+
+</body>
+</html>
