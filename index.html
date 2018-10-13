@@ -43,7 +43,7 @@
     
     <ul>
         <li v-for='record in commits'>
-            <a href="record.html_url">{{record.full_name}}</a>
+            <a :href="record.html_url">{{record.full_name}}</a>
             <span>更新紀錄</span> 
             <span>上傳時間: {{record.created_at}}</span> 
             <span> 更新時間: {{record.pushed_at}}</span>
